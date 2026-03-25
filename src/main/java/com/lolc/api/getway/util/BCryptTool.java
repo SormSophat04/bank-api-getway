@@ -7,7 +7,7 @@ public final class BCryptTool {
     }
 
     public static void main(String[] args) {
-        String raw = args.length > 0 ? args[0] : "123456";
+        String raw = args.length > 0 ? args[0] : "123123";
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         System.out.println(encoder.encode(raw));
     }

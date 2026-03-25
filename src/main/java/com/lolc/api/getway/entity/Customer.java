@@ -1,14 +1,17 @@
 package com.lolc.api.getway.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
 
 @Data
 @Entity
 @Table(name = "customers")
-public class Customer {
+@EqualsAndHashCode(callSuper = true)
+public class Customer extends AuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,4 +32,12 @@ public class Customer {
 
     LocalDate birthDate;
     private String status;
+
+    @Column(name = "fcm_token")
+    private String fcmToken;
+
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", unique = true)
+    private User user;
 }

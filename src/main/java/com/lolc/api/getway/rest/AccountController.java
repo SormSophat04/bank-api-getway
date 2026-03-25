@@ -1,6 +1,7 @@
 package com.lolc.api.getway.rest;
 
 import com.lolc.api.getway.dto.AccountDTO;
+import com.lolc.api.getway.dto.response.AccountResponse;
 import com.lolc.api.getway.entity.Account;
 import com.lolc.api.getway.mapper.AccountMapper;
 import com.lolc.api.getway.service.AccountService;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("accounts")
+@RequestMapping("/api/accounts")
 public class AccountController {
     private final AccountService accountService;
     private final AccountMapper accountMapper;
@@ -25,9 +26,15 @@ public class AccountController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Account>> getAccounts(){
-        List<Account> accountList = accountService.findAll();
+    public ResponseEntity<List<AccountDTO>> getAccounts(){
+        List<AccountDTO> accountList = accountService.findAll();
         return ResponseEntity.ok(accountList);
+    }
+
+    @GetMapping("/customer/{customerId}")
+    public ResponseEntity<List<AccountDTO>> getAccountsByCustomerId(@PathVariable Long customerId) {
+        List<AccountDTO> accounts = accountService.findByCustomerId(customerId);
+        return ResponseEntity.ok(accounts);
     }
 
     @GetMapping("{accountId}")

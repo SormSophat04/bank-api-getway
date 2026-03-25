@@ -2,13 +2,16 @@ package com.lolc.api.getway.impl;
 
 import com.lolc.api.getway.dto.AccountDTO;
 import com.lolc.api.getway.entity.Account;
+import com.lolc.api.getway.exception.ResourceNotFoundException;
 import com.lolc.api.getway.mapper.AccountMapper;
 import com.lolc.api.getway.repository.AccountRepository;
 import com.lolc.api.getway.service.AccountService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,13 +26,25 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<Account> findAll() {
-        return accountRepository.findAll();
+    @Transactional
+    public List<AccountDTO> findAll() {
+        return accountRepository.findAll().stream()
+                .map(accountMapper::toAccountDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public List<AccountDTO> findByCustomerId(Long customerId) {
+        return accountRepository.findByCustomer_CustomerId(customerId).stream()
+                .map(accountMapper::toAccountDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
     public Account findById(Long accountId) {
-        return accountRepository.findById(accountId).orElseThrow();
+        return accountRepository.findById(accountId).orElseThrow(()->
+                new ResourceNotFoundException("Account not found with id " + accountId));
     }
 
     @Override

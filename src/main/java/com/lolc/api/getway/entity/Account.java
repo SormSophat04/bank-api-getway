@@ -1,12 +1,17 @@
 package com.lolc.api.getway.entity;
 
+import com.lolc.api.getway.enums.Currency;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.math.BigDecimal;
 
 @Data
 @Entity
 @Table(name = "accounts")
-public class Account {
+@EqualsAndHashCode(callSuper = true)
+public class Account extends AuditEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_id")
@@ -19,15 +24,15 @@ public class Account {
     private String accountType;
 
     @Column(name = "balance", nullable = false)
-    private String balance;
+    private BigDecimal balance;
 
     @Column(name = "currency", nullable = false)
-    private String currency;
+    private Currency currency;
 
     @Column(name = "status", nullable = false)
     private String status;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customerId")
-   private Customer customer;
+    private Customer customer;
 }

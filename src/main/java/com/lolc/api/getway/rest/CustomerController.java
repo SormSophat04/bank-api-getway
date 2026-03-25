@@ -1,7 +1,10 @@
 package com.lolc.api.getway.rest;
 
+import com.lolc.api.getway.dto.request.FcmTokenUpdateRequest;
+import com.lolc.api.getway.dto.response.CustomerResponse;
 import com.lolc.api.getway.entity.Customer;
 import com.lolc.api.getway.service.CustomerService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("customers")
+@RequestMapping("/api/customers")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -22,8 +25,8 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Customer>> getAllCustomers() {
-        List<Customer> customers = customerService.getCustomers();
+    public ResponseEntity<List<CustomerResponse>> getAllCustomers() {
+        List<CustomerResponse> customers = customerService.getCustomers();
         return ResponseEntity.ok(customers);
     }
 
@@ -37,6 +40,15 @@ public class CustomerController {
     public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer, @PathVariable Long customerId) {
         Customer update = customerService.update(customer, customerId);
         return ResponseEntity.ok(update);
+    }
+
+    @PutMapping("/{customerId}/fcm-token")
+    public ResponseEntity<?> updateFcmToken(
+            @PathVariable Long customerId,
+            @Valid @RequestBody FcmTokenUpdateRequest request
+    ) {
+        customerService.updateFcmToken(customerId, request.fcmToken());
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{customerId}")

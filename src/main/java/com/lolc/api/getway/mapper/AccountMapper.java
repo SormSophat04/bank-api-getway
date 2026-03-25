@@ -13,7 +13,12 @@ public interface AccountMapper {
 
     AccountMapper INSTANCE = Mappers.getMapper(AccountMapper.class);
 
+    @Mapping(target = "accountId", ignore = true)
     @Mapping(target = "customer.customerId", source = "customerId")
+    @Mapping(target = "createAt", ignore = true)
+    @Mapping(target = "updateAt", ignore = true)
+    @Mapping(target = "createBy", ignore = true)
+    @Mapping(target = "updateBy", ignore = true)
     Account toAccount(AccountDTO accountDTO);
 
     @Mapping(target = "customerId", source = "customer.customerId")
@@ -21,5 +26,9 @@ public interface AccountMapper {
 
     @Mapping(target = "accountId", ignore = true)
     @Mapping(target = "customer.customerId", source = "customerId")
+    @Mapping(target = "createAt", ignore = true)
+    @Mapping(target = "updateAt", ignore = true)
+    @Mapping(target = "createBy", ignore = true)
+    @Mapping(target = "updateBy", ignore = true)
     void updateAccountFromDto(AccountDTO accountDTO, @MappingTarget Account account);
 }

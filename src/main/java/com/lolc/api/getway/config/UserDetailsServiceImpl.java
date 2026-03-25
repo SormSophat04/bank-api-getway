@@ -1,7 +1,7 @@
 package com.lolc.api.getway.config;
 
 import com.lolc.api.getway.entity.User;
-import com.lolc.api.getway.repository.UserRepository;
+import com.lolc.api.getway.repository.AuthRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,15 +14,16 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final AuthRepository authRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+    public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
+        String normalizedPhone = phoneNumber == null ? null : phoneNumber.trim();
+        User user = authRepository.findByPhoneNumber(normalizedPhone)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found for phone number: " + normalizedPhone));
 
         return org.springframework.security.core.userdetails.User
-                .withUsername(user.getUsername())
+                .withUsername(user.getPhoneNumber())
                 .password(user.getPassword())
                 .authorities(Collections.emptyList())
                 .build();
