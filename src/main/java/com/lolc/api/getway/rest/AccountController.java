@@ -1,7 +1,7 @@
 package com.lolc.api.getway.rest;
 
 import com.lolc.api.getway.dto.AccountDTO;
-import com.lolc.api.getway.dto.response.AccountResponse;
+import com.lolc.api.getway.dto.response.KhqrResponse;
 import com.lolc.api.getway.entity.Account;
 import com.lolc.api.getway.mapper.AccountMapper;
 import com.lolc.api.getway.service.AccountService;
@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -41,6 +42,16 @@ public class AccountController {
     public ResponseEntity<Account> getAccount(@PathVariable Long accountId){
         Account account = accountService.findById(accountId);
         return ResponseEntity.ok(account);
+    }
+
+    @GetMapping("{accountId}/khqr")
+    public ResponseEntity<KhqrResponse> generateKhqr(
+            @PathVariable Long accountId,
+            @RequestParam(required = false) BigDecimal amount,
+            @RequestParam(required = false) String bakongAccountId
+    ) {
+        KhqrResponse khqr = accountService.generateKhqr(accountId, amount, bakongAccountId);
+        return ResponseEntity.ok(khqr);
     }
 
     @PutMapping("{accountId}")

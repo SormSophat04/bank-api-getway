@@ -11,6 +11,7 @@ public interface TransactionService {
     Transaction create(TransactionDTO transactionDTO);
     List<TransactionResponse> list();
     Transaction findById(Long transactionId);
+    TransactionResponse findResponseById(Long transactionId);
     Transaction update(Long transactionId, TransactionDTO transactionDTO);
     void delete(Long transactionId);
 

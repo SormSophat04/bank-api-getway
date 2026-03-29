@@ -1,6 +1,6 @@
 package com.lolc.api.getway.impl;
 
-import com.lolc.api.getway.config.JwtService;
+import com.lolc.api.getway.security.JwtService;
 import com.lolc.api.getway.dto.request.LoginRequest;
 import com.lolc.api.getway.dto.request.RefreshTokenRequest;
 import com.lolc.api.getway.dto.request.RegisterRequest;
@@ -9,7 +9,7 @@ import com.lolc.api.getway.entity.User;
 import com.lolc.api.getway.exception.ConflictException;
 import com.lolc.api.getway.repository.AuthRepository;
 import com.lolc.api.getway.repository.CustomerRepository;
-import com.lolc.api.getway.security.PasswordConfig;
+import com.lolc.api.getway.config.PasswordConfig;
 import com.lolc.api.getway.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

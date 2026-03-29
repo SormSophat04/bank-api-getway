@@ -1,4 +1,4 @@
-package com.lolc.api.getway.config;
+package com.lolc.api.getway.impl;
 
 import com.lolc.api.getway.entity.User;
 import com.lolc.api.getway.repository.AuthRepository;

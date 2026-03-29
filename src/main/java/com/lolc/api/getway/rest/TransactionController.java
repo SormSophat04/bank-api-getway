@@ -1,9 +1,7 @@
 package com.lolc.api.getway.rest;
 
-import com.lolc.api.getway.dto.TransactionDTO;
 import com.lolc.api.getway.dto.request.TransferRequest;
 import com.lolc.api.getway.dto.response.TransactionResponse;
-import com.lolc.api.getway.entity.Transaction;
 import com.lolc.api.getway.service.TransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +29,8 @@ public class TransactionController {
     }
 
     @GetMapping("/{transactionId}")
-    public ResponseEntity<Transaction> getTransactionById(@PathVariable Long transactionId){
-        Transaction byId = transactionService.findById(transactionId);
+    public ResponseEntity<TransactionResponse> getTransactionById(@PathVariable Long transactionId){
+        TransactionResponse byId = transactionService.findResponseById(transactionId);
         return ResponseEntity.ok(byId);
     }
 

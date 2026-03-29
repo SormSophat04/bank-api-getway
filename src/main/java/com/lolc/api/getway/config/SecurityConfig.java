@@ -1,6 +1,6 @@
-package com.lolc.api.getway.security;
+package com.lolc.api.getway.config;
 
-import com.lolc.api.getway.config.JwtAuthenticationFilter;
+import com.lolc.api.getway.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

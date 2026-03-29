@@ -1,4 +1,4 @@
-package com.lolc.api.getway.config;
+package com.lolc.api.getway.security;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

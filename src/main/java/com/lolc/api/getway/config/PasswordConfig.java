@@ -1,4 +1,4 @@
-package com.lolc.api.getway.security;
+package com.lolc.api.getway.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

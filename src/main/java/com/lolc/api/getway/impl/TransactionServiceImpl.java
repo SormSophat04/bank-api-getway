@@ -13,6 +13,7 @@ import com.lolc.api.getway.repository.TransactionRepository;
 import com.lolc.api.getway.service.TransactionService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -48,6 +49,12 @@ public class TransactionServiceImpl implements TransactionService {
         return transactionRepository.findById(transactionId).orElseThrow(
                 () -> new ResourceNotFoundException("Transaction with id: " + transactionId + " not found")
         );
+    }
+
+    @Override
+    @Transactional
+    public TransactionResponse findResponseById(Long transactionId) {
+        return transactionMapper.toResponse(findById(transactionId));
     }
 
     @Override
@@ -125,6 +132,7 @@ public class TransactionServiceImpl implements TransactionService {
         Account account = accountRepository.findById(accountId)
                 .orElseThrow(() -> new ResourceNotFoundException("Account with id: " + accountId + " not found"));
         List<Transaction> transactions = transactionRepository.findByFromAccountIdOrToAccountIdOrderByCreateAtDesc(account, account);
+        
         return transactions.stream()
                 .map(transactionMapper::toResponse)
                 .collect(Collectors.toList());

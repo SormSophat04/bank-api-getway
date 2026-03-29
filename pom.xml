@@ -127,6 +127,18 @@
 			<artifactId>firebase-admin</artifactId>
 			<version>9.3.0</version>
 		</dependency>
+
+		<!--QR-->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>3.5.3</version>
+		</dependency>
+		<dependency>
+			<groupId>kh.gov.nbc.bakong_khqr</groupId>
+			<artifactId>sdk-java</artifactId>
+			<version>1.0.0.16</version>
+		</dependency>
 	</dependencies>
 
 	<build>
