@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.lolc</groupId>
-	<artifactId>api-gateway</artifactId>
+	<artifactId>rest_api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name/>
@@ -138,6 +138,13 @@
 			<groupId>kh.gov.nbc.bakong_khqr</groupId>
 			<artifactId>sdk-java</artifactId>
 			<version>1.0.0.16</version>
+		</dependency>
+
+		<!--Excel Export-->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>5.4.1</version>
 		</dependency>
 	</dependencies>
 

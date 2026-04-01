@@ -1,0 +1,34 @@
+package com.lolc.api.rest.mapper;
+
+import com.lolc.api.rest.dto.AccountDTO;
+import com.lolc.api.rest.entity.Account;
+import com.lolc.api.rest.service.AccountService;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.factory.Mappers;
+
+@Mapper(componentModel = "spring", uses =  {AccountService.class})
+public interface AccountMapper {
+
+    AccountMapper INSTANCE = Mappers.getMapper(AccountMapper.class);
+
+    @Mapping(target = "accountId", ignore = true)
+    @Mapping(target = "customer.customerId", source = "customerId")
+    @Mapping(target = "createAt", ignore = true)
+    @Mapping(target = "updateAt", ignore = true)
+    @Mapping(target = "createBy", ignore = true)
+    @Mapping(target = "updateBy", ignore = true)
+    Account toAccount(AccountDTO accountDTO);
+
+    @Mapping(target = "customerId", source = "customer.customerId")
+    AccountDTO toAccountDTO(Account account);
+
+    @Mapping(target = "accountId", ignore = true)
+    @Mapping(target = "customer.customerId", source = "customerId")
+    @Mapping(target = "createAt", ignore = true)
+    @Mapping(target = "updateAt", ignore = true)
+    @Mapping(target = "createBy", ignore = true)
+    @Mapping(target = "updateBy", ignore = true)
+    void updateAccountFromDto(AccountDTO accountDTO, @MappingTarget Account account);
+}
